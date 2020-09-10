@@ -126,8 +126,8 @@ def mark_all(request):
 
 
 @login_required
-@require_POST
-def delete(request):
+#@require_POST
+def delete(request,notification_id):
     """
     Deletes notification of supplied notification ID.
 
@@ -141,7 +141,7 @@ def delete(request):
 
     :return: Response to delete action on supplied notification ID.
     """
-    notification_id = request.POST.get('id', None)
+    #notification_id = request.POST.get('id', None)
     success = True
 
     if notification_id:
@@ -154,16 +154,17 @@ def delete(request):
                 notification.save()
             else:
                 notification.delete()
-            msg = _("Deleted notification successfully")
+            msg = _("Deleted notification successfully" + str(notification_id))
         except Notification.DoesNotExist:
             success = False
-            msg = _("Notification does not exists.")
+            msg = _("Notification does not exists."+ str(notification_id))
     else:
         success = False
-        msg = _("Invalid Notification ID")
+        msg = _("Invalid Notification ID" + str(notification_id))
 
     ctx = {'msg': msg, 'success': success, }
-
+    print('EDEN'*100)
+    print(ctx)
     return notification_redirect(request, ctx)
 
 
