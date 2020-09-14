@@ -30,10 +30,11 @@ def notification_redirect(request, ctx):
     if request.is_ajax():
         return JsonResponse(ctx)
     else:
+        
         next_page = request.POST.get('next', reverse('notifications:all'))
         if not ctx['success']:
             return HttpResponseBadRequest(ctx['msg'])
-        if is_safe_url(next_page):
+        if is_safe_url(next_page, '*'):
             return HttpResponseRedirect(next_page)
         else:
             return HttpResponseRedirect(reverse('notifications:all'))
@@ -163,7 +164,7 @@ def delete(request,notification_id):
         msg = _("Invalid Notification ID" + str(notification_id))
 
     ctx = {'msg': msg, 'success': success, }
-    print('EDEN'*100)
+    #print('EDEN'*100)
     print(ctx)
     return notification_redirect(request, ctx)
 
