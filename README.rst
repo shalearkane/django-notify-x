@@ -1,5 +1,5 @@
 ============================
-django-notify-x: quick guide
+django-notify-xi: quick guide
 ============================
 
 .. image:: https://readthedocs.org/projects/django-notify-x/badge/?version=latest
@@ -15,7 +15,7 @@ django-notify-x: quick guide
 Update: June 8
    - Updated for Django 4
 
-Django NotifyX is a reusable app which adds notification system features to your Django app.
+Django Notify XI is a reusable app which adds notification system features to your Django app.
 
 It was inspired from `django-notifications`_ , major differences include:
     - Multipe user notification at once.
