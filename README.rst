@@ -13,7 +13,7 @@ django-notify-x: quick guide
    :target: https://travis-ci.org/v1k45/django-notify-x
 
 Update: June 8
-   - Update for Django 4
+   - Updated for Django 4
 
 Django NotifyX is a reusable app which adds notification system features to your Django app.
 
