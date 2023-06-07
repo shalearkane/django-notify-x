@@ -1,15 +1,14 @@
+from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
-from django.conf import settings
-from django.db.models import QuerySet
-from jsonfield.fields import JSONField
-from six import python_2_unicode_compatible
+from django.db.models import JSONField, QuerySet
+from django.utils.encoding import force_str
+from django.utils.functional import cached_property
 from django.utils.html import escape
 from django.utils.timesince import timesince
-from django.utils.translation import ugettext_lazy as _
-from django.utils.encoding import force_text
-from django.utils.functional import cached_property
+from django.utils.translation import gettext_lazy as _
+from six import python_2_unicode_compatible
 
 from .utils import prefetch_relations
 
@@ -391,14 +390,14 @@ class Notification(models.Model):
     def do_escape(obj):
         """
         Method to HTML escape an object or set it to None conditionally.
-        performs ``force_text()`` on the argument so that a foreignkey gets
+        performs ``force_str()`` on the argument so that a foreignkey gets
         serialized? and spit out the ``__str__`` output instead of an Object.
 
         :param obj: Object to escape.
 
         :return: HTML escaped and JSON-friendly data.
         """
-        return escape(force_text(obj)) if obj else None
+        return escape(force_str(obj)) if obj else None
 
     def as_json(self):
         """

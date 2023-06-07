@@ -1,8 +1,9 @@
-from django.test import TestCase, override_settings
 from django.contrib.auth import get_user_model
+from django.test import TestCase, override_settings
+from django.utils import timezone
+
 from notify.models import Notification
 from notify.signals import notify
-from django.utils import timezone
 
 try:
     from django.core.urlresolvers import reverse
@@ -10,9 +11,11 @@ except ImportError:
     from django.urls import reverse
 
 import json
-from django.template import Template, Context, RequestContext
-from django.test.client import RequestFactory
+
 from django.contrib.auth.models import AnonymousUser
+from django.core.exceptions import ObjectDoesNotExist
+from django.template import Context, RequestContext, Template
+from django.test.client import RequestFactory
 
 User = get_user_model()
 
@@ -387,8 +390,8 @@ class NotificationViewTest(TestCase):
         self.assertFalse(first_nf.deleted)
 
         # Soft delete notification
-        ctx = {'id': first_nf_id}
-        response = self.client.post(reverse('notifications:delete'), ctx)
+        ctx = {'notification_id': first_nf_id}
+        response = self.client.post(reverse('notifications:delete', kwargs=ctx))
         self.assertRedirects(response, reverse('notifications:all'))
 
         nf = Notification.objects.get(pk=first_nf_id)
@@ -406,8 +409,8 @@ class NotificationViewTest(TestCase):
         self.assertFalse(first_nf.deleted)
 
         # Soft delete notification
-        ctx = {'id': first_nf_id}
-        response = self.client.post(reverse('notifications:delete'), ctx,
+        ctx = {'notification_id': first_nf_id}
+        response = self.client.post(reverse('notifications:delete', kwargs=ctx),
                                     HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
 
@@ -426,11 +429,11 @@ class NotificationViewTest(TestCase):
         first_nf_id = first_nf.id
 
         # Hard delete notification
-        ctx = {'id': first_nf_id}
-        response = self.client.post(reverse('notifications:delete'), ctx)
+        ctx = {'notification_id': first_nf_id}
+        response = self.client.post(reverse('notifications:delete', kwargs=ctx))
         self.assertRedirects(response, reverse('notifications:all'))
 
-        self.assertRaises(Notification.DoesNotExist,
+        self.assertRaises(ObjectDoesNotExist,
                           Notification.objects.get,
                           pk=first_nf_id)
 

@@ -22,9 +22,9 @@ setup(
     license='The MIT License',
     platforms=['OS Independent'],
     keywords='django notifications, notify, facebook like notifications',
-    author='Vikas Yadav',
-    author_email='v1k45x@gmail.com',
-    url="https://github.com/v1k45/django-notify-x",
+    author='Soumik Dutta',
+    author_email='shalearkane@gmail.com',
+    url="https://github.com/shalearkane/django-notify-x",
     packages=find_packages(),
     package_data={'notify': ['static/notify/*js',
                              'templates/*.html',
@@ -36,15 +36,10 @@ setup(
 
     classifiers=[
         'Development Status :: 5 - Production/Stable',
-        'Framework :: Django :: 1.8',
-        'Framework :: Django :: 1.9',
-        'Framework :: Django :: 1.10',
-        'Framework :: Django :: 1.11',
-        'Framework :: Django :: 2.0',
+        'Framework :: Django :: 4.2',
         'Environment :: Web Environment',
         'Operating System :: OS Independent',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.10',
         'Intended Audience :: Developers',
     ]
 )

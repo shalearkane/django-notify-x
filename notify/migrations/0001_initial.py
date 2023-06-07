@@ -5,7 +5,6 @@ from __future__ import unicode_literals
 from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
-import jsonfield.fields
 
 
 class Migration(migrations.Migration):
@@ -34,7 +33,7 @@ class Migration(migrations.Migration):
                 ('obj_object_id', models.PositiveIntegerField(blank=True, null=True)),
                 ('obj_text', models.CharField(blank=True, max_length=50, null=True)),
                 ('obj_url_text', models.URLField(blank=True, null=True)),
-                ('extra', jsonfield.fields.JSONField(blank=True, null=True)),
+                ('extra',models.JSONField(blank=True, null=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('read', models.BooleanField(default=False)),
                 ('deleted', models.BooleanField(default=False)),
